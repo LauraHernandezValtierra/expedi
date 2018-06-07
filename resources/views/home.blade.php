@@ -21,6 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-purple.min.css')}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,6 +33,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
+
+  @stack('styles')
+  <style type="text/css">
+    .subtitulo{
+          color: #B62F0E;
+          text-align: center;
+  </style>
+        
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -53,14 +63,14 @@ desired effect
 |               | sidebar-mini                            |
 |---------------------------------------------------------|
 -->
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="skin-blue sidebar-mini sidebar-collapse" >
 <div class="wrapper">
 
   <!-- Main Header -->
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>M</b>T</span>
       <!-- logo for regular state and mobile devices -->
@@ -82,42 +92,37 @@ desired effect
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><i class="fa fa-circle text-success"></i>{{ Auth::user()->cnombre }} {{ Auth::user()->capellidop }} {{ Auth::user()->capellidom }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                 {{ Auth::user()->cnombre }} {{ Auth::user()->capellidop }} {{ Auth::user()->capellidom }}-{{ Auth::user()->ciniciales }} 
                 </p>
+                
               </li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
+                  <div class="col-md-3">
+                    {{ Auth::user()->cid_empleado}}
                   </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
+                  <div class="col-md-3">
+                    {{ Auth::user()->ciniciales}}
                   </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
+                  <div class="col-md-3">
+                    {{ Auth::user()->cmail}}
                   </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                     
+                  <form method="POST" action="{{route('logout')}}">
+                    {{csrf_field()}}
+                    <button href="#" class="btn btn-default">Salir</button>
+                  </form>
                 </div>
               </li>
             </ul>
@@ -139,12 +144,12 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="http://lax.megatravel.com.mx/expo/img/logo_mt.png">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          
+          
+          
         </div>
       </div>
 
@@ -162,9 +167,13 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">MENÚ</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+        <li class="active"><a href="{{route('expedientes')}}"><i class="fa fa-folder-open-o"></i> <span>Expedientes</span></a></li>
+        <ul class="treeview-menu">
+            <li><a href="#"></a></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
         <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
@@ -188,12 +197,13 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
-        <small>Optional description</small>
+         @yield('title')
+        <small> @yield('subtitle')</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>@yield('nivel1')</a></li>
+        <li class="active">@yield('nivel2')</li>
+         <li class="active">@yield('nivel3')</li>
       </ol>
     </section>
 
@@ -203,7 +213,7 @@ desired effect
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-
+        @yield('content')
     </section>
     <!-- /.content -->
   </div>
@@ -216,7 +226,7 @@ desired effect
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    <strong><a href="#">© Mega Travel Operadora, S.A. de C.V. </a></strong>México 1999 - 2018 All rights reserved. 
   </footer>
 
   <!-- Control Sidebar -->
@@ -307,8 +317,21 @@ desired effect
 <!-- AdminLTE App -->
 <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 
+@stack('scripts')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+     <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+     <script type="text/javascript">
+     
+
+     
+      
+     </script>
+    
 </body>
 </html>

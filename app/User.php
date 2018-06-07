@@ -14,7 +14,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
+    protected $table='templeados';
+    protected $primaryKey = 'cid_empleado';
+   /* protected $fillable = [
         'name', 'email', 'password',
     ];
 
@@ -23,7 +25,21 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
+   /* protected $hidden = [
         'password', 'remember_token',
-    ];
+    ];*/
+public $remember_token=false;
+
+    public function getAuthPassword()
+    {
+        return $this->ccontrasenia;
+    }
+
+     public function getCcontraseniaAttribute($value)
+    {
+        if( \Hash::needsRehash($value) ) {
+                $value = \Hash::make($value);
+        }
+        return  $value;
+    }
 }
