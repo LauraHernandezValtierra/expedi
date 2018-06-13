@@ -6,7 +6,6 @@
             overflow:scroll;
             height:500px;
         }
-       
     </style>
     <link rel="stylesheet" href="{{asset('/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 @endpush
@@ -14,7 +13,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-12">
 			<nav class="navbar navbar-default">
 			  <div class="container-fluid">
 			    <ul class="nav navbar-nav">
@@ -34,7 +33,7 @@
 			  </div>
 			</nav>
 		</div>
-		<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-12">
 			<div class="box box-default">
 			
 			
@@ -89,7 +88,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-12">
 			<div class="box box-info">
 				<div class="box-header with-border">
 	              <h3 class="box-title">Expedientes</h3>

@@ -142,15 +142,15 @@
 						<div class="col-md-2">
 							
 								<div class="checkbox">
-							      <label><input type="checkbox" value="">T.C. Preferencial</label>
+							      <label><input type="checkbox" value="" disabled>T.C. Preferencial</label>
 							      <input type="text" name="" class="form-control" readonly>
 							    </div>
 							    <div class="checkbox">
-							      <label><input type="checkbox" value="" >Meses sin Intereses</label>
+							      <label><input type="checkbox" value="" disabled>Meses sin Intereses</label>
 							      <input type="text" name="" class="form-control" readonly>
 							    </div>
 							    <div class="checkbox">
-							      <label><input type="checkbox" value="" >Tarifa Aerea Promocional</label>
+							      <label><input type="checkbox" value="" disabled>Tarifa Aerea Promocional</label>
 							    </div>
 							
 						</div>

@@ -7,6 +7,7 @@ use App\Recibodig;
 use App\Tcliente;
 use App\Expediente;
 use App\Solicitud;
+use App\Tfuncionario;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -24,7 +25,12 @@ class EstadosdeCuentaController extends Controller
 
         $expediente=Expediente::where('cid_expediente',$exp)->first();
 
+        $funcionario=Tfuncionario::where('cid_cliente', $expediente->cid_cliente)->first();
+
         $cliente=Tcliente:: where('cid_cliente',$expediente->cid_cliente)->first();
+
+        $today = Carbon::now();//fecha de hoy
+        $hoy=strtoupper($today->formatLocalized('%d de %B del %Y %I:%M:%S'));//formato de la fecha de hoy
 
         $porcommega=0.0218; //porcentaje de comisión mega
         $porcomb=0.0218; //porcentaje de comisión bancos
@@ -62,7 +68,7 @@ class EstadosdeCuentaController extends Controller
         }
         if($expediente->moneda=='MXN'){
         	$diferencia=((float)$expediente->iva)-$montomxn;//diferencia a pagar mxn 
-            //no se tomó el valor del total del paquete ya que para la prueba no se está usando la base de datos oficial
+            //no se tomó el valor del total del paquete ya que para la prueba no se está usando la base de datos oficial y en la de prueba el monto aparece como string
         }else{
 
         	
@@ -70,15 +76,12 @@ class EstadosdeCuentaController extends Controller
             //no se tomó el valor del total del paquete ya que para la prueba no se está usando la base de datos oficial
         }
 
-        $today = Carbon::today();
-        $hoy=strtoupper($today->formatLocalized('%d de %B del %Y %I:%M:%S'));
-
         if($tipo==2){//si es tipo 2, es un estado de cuenta para un cliente
         	$pdf = PDF::loadView('pdf.estadocuentaCliente', compact('exp', 'recibo', 'cliente', 'expediente', 'recibos', 'montomxn', 'montousd', 'diferencia', 'hoy'));
             $t="Cliente";//para dar nombre al archivo
         }
         else{//es un estado de cuenta para mega
-        	$pdf = PDF::loadView('pdf.estadocuentaMega', compact('exp', 'recibo', 'cliente', 'expediente', 'recibos', 'montomxn', 'montousd', 'diferencia', 'hoy', 'cm', 'cmusd', 'cb', 'cbusd', 'porcomb', 'porcommega'));
+        	$pdf = PDF::loadView('pdf.estadocuentaMega', compact('exp', 'recibo', 'cliente', 'expediente', 'recibos', 'montomxn', 'montousd', 'diferencia', 'hoy', 'cm', 'cmusd', 'cb', 'cbusd', 'porcomb', 'porcommega', 'funcionario'));
             $t="Mega";//para dar nombre al archivo
         }
 

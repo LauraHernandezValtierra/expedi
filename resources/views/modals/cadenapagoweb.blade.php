@@ -17,7 +17,7 @@
 							        		<table class="table table-condensed">
 							        			
 							        				<tr>
-							        					<td>Expedeinte</td>
+							        					<td>Expediente</td>
 							        					<td>{{$expediente->cid_expediente}}</td>
 							        					
 							        				</tr>
@@ -28,7 +28,7 @@
 							        				</tr>
 							        				<tr>
 							        					<td>T.C Hoy</td>
-							        					<td></td>
+							        					<td>{{$tchoy->tcambio}}</td>
 							        					
 							        				</tr>
 							        				<tr>

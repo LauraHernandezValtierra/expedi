@@ -20,4 +20,9 @@ class Recibodig extends Model
         $fecha =strtoupper($tiempo->formatLocalized('%d.%b.%y'));
         return $fecha;
 	}
+     public function getFsalidaAttribute($fsalida){
+        $tiempo = new Carbon($fsalida);
+        $fecha =strtoupper($tiempo->formatLocalized('%d de %B del %Y'));
+        return $fecha;
+    }
 }

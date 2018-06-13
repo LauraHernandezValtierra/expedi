@@ -9,6 +9,8 @@ use App\Pasajero;
 use App\Recibodig;
 use App\Boleto;
 use App\Tcliente;
+use App\Tcambio;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
@@ -40,6 +42,10 @@ class ExpedienteController extends Controller
             ->where('expediente.cid_expediente', $exp)
             ->first();
             $pasajeros=Pasajero::where('cid_expediente',$exp)->get();
+            $today = Carbon::now();//fecha de hoy
+            $hoy=strtoupper($today->formatLocalized('%Y-%m-%d'));
+           
+            $tchoy=Tcambio::where('fecha', $hoy)->first();
             switch ($act) {
             	case 1://resumen 
             		return view('resumen', compact('expediente', 'act'));
@@ -74,7 +80,10 @@ class ExpedienteController extends Controller
 
                         }
 
-	            		return view('cobranza', compact('expediente', 'recibos','act', 'totmxn', 'totusd', 'cliente', 'pasajeros', 'apventatotal'));
+                        $impapagar=$expediente->minapagar-$apventatotal;//importe a pagar
+
+
+	            		return view('cobranza', compact('expediente', 'recibos','act', 'totmxn', 'totusd', 'cliente', 'pasajeros', 'apventatotal', 'tchoy','impapagar'));
             		break;
 
             	case 4://boletos

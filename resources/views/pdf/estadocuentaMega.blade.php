@@ -29,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 background-color: #9AB5D2;
             }
             .trcolor2{
-                background-color: #C1DBF7  ;  
+                background-color: #E2F0FF  ;  
             }
 
   </style>
@@ -52,7 +52,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     		<th>Expediente</th><td>{{$exp}}</td>
     	</tr>
     	<tr>
-    		<th>Funcionario: </th><td></td>
+    		<th>Funcionario: </th><td>{{$funcionario->cid_funcionario}} - {{$funcionario->cnombre}} {{$funcionario->capellidop}} {{$funcionario->capellidom}}</td>
     		<th>Ventas: </th><td>({{$expediente->inicempleado}}) {{$expediente->nomempleado}}</td>
     	</tr>
     	<tr>
@@ -180,11 +180,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <td>{{$cmusd}}</td>
             <td>{{$cbusd}}</td>
         </tr>
+         <tr>
+            <td colspan="6">Ingreso neto es menos la Comisión Bancaria</td>
+        </tr>
     </table>
+  
 
-
-    <footer class="t2">
-        
-    </footer>
 </body>
 </html>

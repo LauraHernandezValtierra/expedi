@@ -6,7 +6,11 @@
             overflow:scroll;
             height:150px;
         }
-        
+         .trfijo{
+        	position: fixed;
+        	 
+        }
+       
        
     </style>
     <!-- iCheck for checkboxes and radio inputs -->
@@ -49,7 +53,7 @@
 						<div class="col-md-2">
 							 <label>Importe a Pagar</label> 
 							<div class="input-group">
-						      <input id="" type="text" class="form-control" name=""  readonly readonly>
+						      <input id="" type="text" class="form-control" name=""  readonly value="{{$impapagar}}">
 						      <span class="input-group-addon">USD</span>
 						    </div>
 						</div>
@@ -67,6 +71,20 @@
 							<div class="texto col-md-12">
 								<div id="scroll">
 									<table class="table table-bordered">
+										<thead>
+										<tr class="trfijo">
+											
+											<th>F. Aut</th>
+											<th>Folio</th>
+											<th>Documento</th>
+											<th>Soporte</th>
+											<th>T.C</th>
+											<th>Cargo Adm</th>
+											<th>Ingreso en</th>
+											<th>Ingresos(MXN)</th>
+											<th>Insgresos(USD)</th>
+											<th>Aplic Venta</th>
+										</tr>
 										<tr>
 											
 											<th>F. Aut</th>
@@ -80,7 +98,9 @@
 											<th>Insgresos(USD)</th>
 											<th>Aplic Venta</th>
 										</tr>
-										@foreach($recibos as $rec)
+										</thead>
+										<tbody>
+											@foreach($recibos as $rec)
 										<tr>
 											<td>{{$rec->dfecha}}</td>
 											<td>{{$rec->folio}}</td>
@@ -106,6 +126,10 @@
 											@endif
 										</tr>
 										@endforeach
+										</tbody>
+										
+										
+										
 									</table>
 								</div>
 							</div>
@@ -120,13 +144,13 @@
 										<div  class="col-md-6">
 										<label>Total Comisionables</label>
 										<div class="input-group">
-												 <input id="" type="text" class="form-control" name="" >
+												 <input id="" type="text" class="form-control" name="" readonly>
 										      <span class="input-group-addon">USD</span>
 										  </div>
 										</div>
 										<div  class="col-md-6">
 											<label>% Comisión</label>
-											<input type="text" name=""  class="form-control"value="">
+											<input type="text" name=""  class="form-control"value=""readonly>
 										</div>
 									</div>
 									<div  class="col-md-12">
@@ -137,14 +161,14 @@
 
 										<label>MXN</label>
 										<div class="input-group">
-												 <input id="" type="text" class="form-control" name="" >
+												 <input id="" type="text" class="form-control" name="" readonly>
 										      <span class="input-group-addon">MXN</span>
 										  </div>
 									</div>
 									<div  class="col-md-6">
 										<label>USD</label>
 										<div class="input-group">
-												 <input id="" type="text" class="form-control" name="" >
+												 <input id="" type="text" class="form-control" name="" readonly>
 										      <span class="input-group-addon">USD</span>
 										  </div>
 									</div>
@@ -268,7 +292,7 @@
 <!--Se separó el código ya que son muchas ventanas modal en esta sección, así es fácil encintrar cada una y llevar a cabo modificaciones-->
 @include('modals.datosfiscales', array('expediente'=>$expediente))
 @include('modals.solicitudcambiodatos', array('expediente'=>$expediente))
-@include('modals.cadenapagoweb', array('expediente'=>$expediente))
+@include('modals.cadenapagoweb', array('expediente'=>$expediente, 'tchoy'=>$tchoy))
 @include('modals.solicitudreembolsos', array('expediente'=>$expediente))
 @include('modals.docreembolsos', array('expediente'=>$expediente))
 @include('modals.docscobranza')

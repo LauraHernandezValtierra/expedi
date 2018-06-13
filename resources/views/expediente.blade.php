@@ -9,6 +9,7 @@
         }
        
     </style>
+<div class="container">
 <div class="row">
 <div class="box box-success">
 	<div class="box-body">
@@ -112,3 +113,5 @@
 			
 		</ul>
 		  <br>
+		</div>
+	</div>

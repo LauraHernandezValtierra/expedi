@@ -9,16 +9,16 @@ use App\Pasajero;
 
 class PasajerosController extends Controller
 {
-    public function agregar(Request $request){
-    	$datos=$request->all();
-    	if(isset($datos['paxprincipal'])){
+    public function agregar(Request $request){//agregar pasajero
+    	$datos=$request->all();//paso todo lo que tiene $request a la variable $datos
+    	if(isset($datos['paxprincipal'])){//si paxprincipal no viene vacía, $principal es igual a 1
     		$principal=1;
     	}else{
     		$principal=0;
     	}
 
     	 $error = null;
-        DB::beginTransaction();
+        DB::beginTransaction();//para saber si se realiza completa la transacción
         try {
         	Pasajero::insert([
         		'apellidop'=>strtoupper($datos['apellidop']),
@@ -34,7 +34,7 @@ class PasajerosController extends Controller
             $success = true;
         }
         catch (\Exception $e) {
-                $success = false;
+                $success = false;//si ocurre un error, se realiza un rollback
                 $error = $e->getMessage();
                 DB::rollback();
                  return redirect()->back()->with('mensaje_error', 'Ha ocurrido un error. Contacte al administrador'.$error);
@@ -45,7 +45,7 @@ class PasajerosController extends Controller
         }
     }
 
-    public function update(Request $request){
+    public function update(Request $request){//update pasajero
     	$datos=$request->all();
     	if(isset($datos['paxprincipal'])){
     		$principal=1;
